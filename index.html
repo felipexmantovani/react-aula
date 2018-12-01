@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Page Title</title>
+
+    <script crossorigin src="https://unpkg.com/react@16.2.0/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.2.0/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/create-react-class@15.6.2/create-react-class.js"></script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+
+    <script>
+        function BemVindoComponent(props) {
+            return React.createElement(
+                'h1', 
+                {
+                    style: {
+                        color: props.cor
+                    }
+                }, 
+                'Bem-vindo ' + props.nome
+            );
+        }
+
+        const bemVindoFelipe =
+            React.createElement(
+                BemVindoComponent,
+                { 
+                    nome: 'Felipe',
+                    cor: 'blue'
+                }
+            )
+
+        const bemVindoJose =
+            React.createElement(
+                BemVindoComponent,
+                { 
+                    nome: 'José',
+                    cor: 'green'
+                }
+            )
+
+        function ConteudoComponent(props) {
+            return React.createElement('p', null, props.texto);
+        }
+
+        function ArtigoComponent(props) {
+            return [
+                React.createElement(
+                    BemVindoComponent,
+                    {
+                        nome: props.nome,
+                        texto: props.texto
+                    }
+                ),
+                React.createElement(
+                    ConteudoComponent,
+                    {
+                        nome: props.texto,
+                        texto: props.texto
+                    }
+                )
+            ]
+        }
+
+        const artigo1 = React.createElement(
+            ArtigoComponent,
+            {
+                nome: 'Douglas',
+                texto: 'Aula de Programação Web com React JS'
+            }
+        )
+
+        const artigo2 = React.createElement(
+            ArtigoComponent,
+            {
+                nome: 'Burnes',
+                texto: 'Aula de PHP'
+            }
+        )
+
+        const ContadorComponent = createReactClass({
+            getInitialState: function() {
+                return {
+                    numero: 0
+                }
+            },
+            componentDidMount: function() {
+                const self = this;
+                setInterval( function() {
+                    self.setState({
+                        numero: self.state.numero + 1
+                    })
+                }, self.props.tempo)
+            },
+            render: function() {
+                return React.createElement(
+                    'p', 
+                    null, 
+                    this.state.numero
+                )
+            }
+        })
+
+        var contador1 = React.createElement(
+            ContadorComponent,
+            {
+                tempo: 500
+            }
+        );
+
+        var contador2 = React.createElement(
+            ContadorComponent,
+            {
+                tempo: 900
+            }
+        );
+
+        const pagina = React.createElement(
+            'div', 
+            null, 
+            [
+                artigo1,
+                artigo2,
+                contador1,
+                contador2
+            ]
+        );
+
+        const bemVindo = React.createElement('div', null, 'Bem-vindo!');
+        ReactDOM.render(pagina, document.getElementById('root'));
+    </script>
+</body>
+</html>
